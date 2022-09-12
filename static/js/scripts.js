@@ -11268,7 +11268,7 @@ var chosenContainerBackdrop = function () {
 }();
 jQuery(document).ready(function () {
 
-    jQuery('.menu-itam-holder .menu-itam-list .image-holder a').attr('rel', 'prettyPhoto');
+    jQuery('.menu-item-holder .menu-itam-list .image-holder a').attr('rel', 'prettyPhoto');
 
     jQuery(document).on("click", "#update_membership", function (e) {
         e.preventDefault();
