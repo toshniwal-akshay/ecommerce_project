@@ -16,7 +16,7 @@
                         </ul>
                         <div class="tab-content">
                             <div id="home" class="tab-pane in active">
-                                <div class="menu-itam-holder">
+                                <div class="menu-item-holder">
                                     
                                     <div class="text-center p-5" id="empty-cart" style="display: none;">
                                         <h3>Cart is empty</h3>
@@ -77,7 +77,7 @@
                         </ul>
                         <div class="tab-content">
                             <div id="home" class="tab-pane in active">
-                                <div class="menu-itam-holder">
+                                <div class="menu-item-holder">
                                     
                                     <div>
                                         <ul>
@@ -89,19 +89,6 @@
                                                 </span>
                                             </li>
 
-                                            {% for key, value in tax_dict.items %}
-                                                {% for i, j in value.items %}
-                                                    <li style="list-style-type: none;">
-                                                        {{ key }} <small>({{ i }}%)</small>
-                                                        <span class="price float-right">
-                                                            <span class="currency">$</span>
-                                                            <span id="tax-{{ key }}">{{ j }}</span>
-                                                        </span>
-                                                    </li>
-                                                {% endfor %}
-                                            {% endfor %}
-
-
                                             <li style="list-style-type: none; font-weight: 600;">
                                                 TOTAL
                                                 <span class="price float-right">
@@ -110,7 +97,7 @@
                                                 </span>
                                             </li>
 
-                                            <a href="#" class="btn btn-danger w-100 p-2 mt-3">PROCEED TO CHECKOUT</a>
+                                            <a href="{% url 'checkout' %}" class="btn btn-danger w-100 p-2 mt-3">PROCEED TO CHECKOUT</a>
                                         </ul>
                                     </div>
                                     

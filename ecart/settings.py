@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'vendor',
     'products',
     'marketplace',
+    'customers',
+    'orders',
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -58,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'orders.request_object.RequestObjectMiddleware',
 ]
 
 ROOT_URLCONF = 'ecart.urls'
@@ -73,9 +76,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'accounts.context_processor.get_vendor',
+                'accounts.context_processors.get_vendor',
                 'marketplace.context_processors.get_cart_counter',
                 'marketplace.context_processors.get_cart_amounts',
+                'accounts.context_processors.get_user_profile',
+
             ],
         },
     },

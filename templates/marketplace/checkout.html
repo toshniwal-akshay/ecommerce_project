@@ -7,20 +7,21 @@
     <div class="page-section">
         <div class="container">
             <div class="row">
-                
+
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="tabs-holder horizontal">
                         <ul class="stickynav-tabs nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-shopping-cart text-danger"></i>Billing Address</a></li>
-                            
+                            <li class="active"><a data-toggle="tab" href="#home"><i
+                                        class="fa fa-shopping-cart text-danger"></i>Billing Address</a></li>
+
                         </ul>
                         <div class="tab-content">
                             <div id="home" class="tab-pane in active">
-                                <div class="menu-itam-holder">
-                                    
-                                
+                                <div class="menu-item-holder">
+
+
                                     <div id="menu-item-list-6272" class="menu-itam-list">
-                                        
+
                                         <form action="{% url 'place_order' %}" method="POST">
                                             {% csrf_token %}
 
@@ -66,15 +67,15 @@
                                                 </div>
                                             </div>
 
-                                        
-                                        
-                                        
+
+
+
                                     </div>
 
-                                  
+
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -83,41 +84,43 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="tabs-holder horizontal">
                         <ul class="stickynav-tabs nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#home"><i class="icon- icon-room_service"></i>Your Order</a></li>
-                            
+                            <li class="active"><a data-toggle="tab" href="#home"><i
+                                        class="icon- icon-room_service"></i>Your Order</a></li>
+
                         </ul>
                         <div class="tab-content">
                             <div id="home" class="tab-pane in active">
-                                <div class="menu-itam-holder">
+                                <div class="menu-item-holder">
 
                                     <div id="menu-item-list-6272" class="menu-itam-list">
-                                        
-                                        <ul>
-                                            
-                                                {% for item in cart_items %}
-                                                <li id="cart-item-{{item.id}}">
-                                                    <div class="image-holder"> <img src="{{ item.fooditem.image.url }}" alt=""></div>
-                                                    <div class="text-holder">
-                                                        <h6>{{ item.fooditem }}</h6>
-                                                        <span>{{ item.fooditem.description }}</span>
-                                                        <a href="{% url 'vendor_detail' item.fooditem.vendor.vendor_slug %}" class="badge badge-warning">{{ item.fooditem.vendor }}</a>
-                                                    </div>
 
-                                                    <div class="quantity" style="display: inline-block; position: absolute; top: 50%; transform: translateY(-50%); margin-top: -10px;">
-                                                        <span>{{ item.quantity }} QTY</span>
-                                                    </div>
-                                                    <div class="price-holder">
-                                                        <span class="price">${{ item.fooditem.price }}</span>
-                                                    </div>
-                                                </li>
-                                                {% endfor %}
-                                            
+                                        <ul>
+
+                                            {% for item in cart_items %}
+                                            <li id="cart-item-{{item.id}}">
+                                                <div class="image-holder"> <img src="{{ item.product.image.url }}"
+                                                        alt=""></div>
+                                                <div class="text-holder">
+                                                    <h6>{{ item.product }}</h6>
+                                                    <span>{{ item.product.description }}</span>
+                                                    <a href="#"
+                                                        class="badge badge-warning">{{ item.product.vendor }}</a>
+                                                </div>
+
+                                                <div class="quantity"
+                                                    style="display: inline-block; position: absolute; top: 50%; transform: translateY(-50%); margin-top: -10px;">
+                                                    <span>{{ item.quantity }} QTY</span>
+                                                </div>
+                                                <div class="price-holder">
+                                                    <span class="price">${{ item.product.price }}</span>
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+
                                         </ul>
-                                        
-                                        
-                                        
+
                                     </div>
-                                    
+
                                     <div>
                                         <ul>
                                             <li style="list-style-type: none;">
@@ -127,20 +130,6 @@
                                                     <span id="subtotal">{{ subtotal }}</span>
                                                 </span>
                                             </li>
-
-                                            {% for key, value in tax_dict.items %}
-                                                {% for i, j in value.items %}
-                                                    <li style="list-style-type: none;">
-                                                        {{ key }} <small>({{ i }}%)</small>
-                                                        <span class="price float-right">
-                                                            <span class="currency">$</span>
-                                                            <span id="tax-{{ key }}">{{ j }}</span>
-                                                        </span>
-                                                    </li>
-                                                {% endfor %}
-                                            {% endfor %}
-
-
                                             <li style="list-style-type: none; font-weight: 600;">
                                                 TOTAL
                                                 <span class="price float-right">
@@ -151,35 +140,35 @@
 
                                             <!-- Select payment method -->
                                             <h5>SELECT PAYMENT METHOD</h5>
-                                            <div class="payment-method">
-                                                <label>
-                                                    <input type="radio" name="payment_method" value="PayPal">
-                                                    <img src="{% static 'images/PayPal.png' %}" alt="PayPal" width="100">
-                                                </label>
-                                                &emsp;
-                                                <label>
-                                                    <input type="radio" name="payment_method" value="RazorPay">
-                                                    <img src="{% static 'images/razorpay_logo.png' %}" alt="RazorPay" width="100">
-                                                </label>
+                                            <div class="payment-method"></div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="payment_method" id="inlineRadio1" value="COD">
+                                                <label class="form-check-label" for="inlineRadio1">Cash On Delivery</label>
+                                              </div>
+                                              <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="payment_method" id="inlineRadio2" value="Prepaid">
+                                                <label class="form-check-label" for="inlineRadio2">Pre-Paid</label>
+                                              </div>
                                             </div>
                                             <span class="text-danger" id="payment-method-error"></span>
                                             <!-- Select payment method -->
 
-                                            <button onclick="return payMethodConfirm();" type="submit" class="btn btn-danger w-100 p-2 mt-3">PLACE ORDER</button>
+                                            <button onclick="return payMethodConfirm();" type="submit"
+                                                class="btn btn-danger w-100 p-2 mt-3">PLACE ORDER</button>
                                         </ul>
 
 
                                         <!-- end the form -->
-                                    </form>
+                                        </form>
                                     </div>
-                                    
+
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -188,23 +177,23 @@
 
 
 <script>
-    function payMethodConfirm(){
+    function payMethodConfirm() {
         var payMethod = $("input[name='payment_method']:checked").val()
-        if(!payMethod){
+        if (!payMethod) {
             $('#payment-method-error').html("Select Payment Method!");
             return false;
-        }else{
-            var conf = confirm('You have selected '+payMethod+' as your preferred payment method.\nClick "OK" to continue.')
-            if(conf == true){
+        } else {
+            var conf = confirm('You have selected ' + payMethod + ' as your preferred payment method.\nClick "OK" to continue.')
+            if (conf == true) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
-        
+
     }
 
-    $('input[name=payment_method]').on('change', function(){
+    $('input[name=payment_method]').on('change', function () {
         $('#payment-method-error').html("");
     })
 </script>

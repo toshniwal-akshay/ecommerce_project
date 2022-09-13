@@ -6,7 +6,6 @@
     <div class="justify-content-center row">
         <div class="col-md-8">
             <div class="bg-white p-3">
-                <img src="{% static 'logo/foodOnlineLogo.png' %}" alt="foodOnline Logo" width="300">
                 <div class="row">
                     <div class="col-md-6">
                         <h4 class="mt-2 mb-3">Thank you for your order.</h4>
@@ -39,15 +38,15 @@
                 <hr>
                 <table class="table">
                     <tbody>
-                        {% for item in ordered_food %}
+                        {% for item in ordered_product %}
                         <tr>
-                            <td><img src="{{ item.fooditem.image.url }}" width="60" alt="Food Image"></td>
+                            <td><img src="{{ item.product.image.url }}" width="60" alt="Product Image"></td>
                             <td>
-                                <p class="mb-0"><b>{{ item.fooditem }}</b></p>
-                                <a class="text-muted" href="{% url 'vendor_detail' item.fooditem.vendor.vendor_slug %}">{{ item.fooditem.vendor.vendor_name }}</a>
+                                <p class="mb-0"><b>{{ item.product }}</b></p>
+                                <a class="text-muted" href="#">{{ item.product.vendor.vendor_name }}</a>
                             </td>
                             <td>{{ item.quantity }} QTY</td>
-                            <td>${{ item.fooditem.price }}</td>
+                            <td>${{ item.product.price }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -67,19 +66,6 @@
                                 </span>
                             </li>
 
-                            {% for key, value in tax_data.items %}
-                                {% for i, j in value.items %}
-                                    <li style="list-style-type: none;">
-                                        {{ key }} <small>({{ i }}%)</small>
-                                        <span class="price float-right">
-                                            <span class="currency">$</span>
-                                            <span id="tax-{{ key }}">{{ j }}</span>
-                                        </span>
-                                    </li>
-                                {% endfor %}
-                            {% endfor %}
-
-
                             <li style="list-style-type: none; font-weight: 600;">
                                 TOTAL
                                 <span class="price float-right">
@@ -94,7 +80,7 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <span class="d-block font-weight-bold">Thanks for ordering with us.</span>
-                        <span>FoodOnline Team</span>
+                        <span>E-CART Team</span>
                     </div>
                     <div class="d-flex justify-content-end align-items-end">
                         <span class="d-block font-weight-bold">Need help?</span>
