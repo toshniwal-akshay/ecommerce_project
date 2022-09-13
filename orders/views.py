@@ -10,6 +10,8 @@ from .utils import generate_order_number
 from accounts.utils import send_notification
 from django.contrib.auth.decorators import login_required
 
+from products.models import Product
+
 
 
 @login_required(login_url='login')
@@ -18,6 +20,27 @@ def place_order(request):
     cart_count = cart_items.count()
     if cart_count <= 0:
         return redirect('marketplace')
+
+    vendors_ids = []
+    for i in cart_items:
+        if i.product.vendor.id not in vendors_ids:
+            vendors_ids.append(i.product.vendor.id)
+
+    subtotal = 0
+    total_data = {}
+    k = {}
+    for i in cart_items:
+        product = Product.objects.get(pk=i.product.id, vendor_id__in=vendors_ids)
+        v_id = product.vendor.id
+        if v_id in k:
+            subtotal = k[v_id]
+            subtotal += (product.price * i.quantity)
+            k[v_id] = subtotal
+        else:
+            subtotal = (product.price * i.quantity)
+            k[v_id] = subtotal
+
+        total_data.update({product.vendor.id: str(subtotal)})
 
     grand_total = get_cart_amounts(request)['grand_total']
 
@@ -35,10 +58,12 @@ def place_order(request):
             order.city = form.cleaned_data['city']
             order.pin_code = form.cleaned_data['pin_code']
             order.user = request.user
+            order.total_data = json.dumps(total_data)
             order.total = grand_total
             order.payment_method = request.POST['payment_method']
             order.save() # order id/ pk is generated
             order.order_number = generate_order_number(order.id)
+            order.vendors.add(*vendors_ids)
             order.save()
             context = {
                 'order': order,

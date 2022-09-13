@@ -14,6 +14,8 @@ from accounts.models import UserProfile
 from products.models import Category, Product
 from products.forms import CategoryForm,ProductForm
 
+from orders.models import Order, OrderedProduct
+
 def get_vendor(request):
     vendor = Vendor.objects.get(user=request.user)
     return vendor
@@ -191,3 +193,29 @@ def delete_product(request, pk=None):
     product.delete()
     messages.success(request, 'Product  has been deleted successfully!')
     return redirect('productitems_by_category', product.category.id)
+
+
+def order_detail(request, order_number):
+    try:
+        order = Order.objects.get(order_number=order_number, is_ordered=True)
+        ordered_product = OrderedProduct.objects.filter(order=order, product__vendor=get_vendor(request))
+        
+        context = {
+            'order': order,
+            'ordered_product': ordered_product,
+            'subtotal': order.get_total_by_vendor()['subtotal'],
+            'grand_total': order.get_total_by_vendor()['grand_total'],
+        }
+    except:
+        return redirect('vendor')
+    return render(request, 'vendor/order_detail.html', context)
+
+
+def my_orders(request):
+    vendor = Vendor.objects.get(user=request.user)
+    orders = Order.objects.filter(vendors__in=[vendor.id], is_ordered=True).order_by('created_at')
+
+    context = {
+        'orders': orders,
+    }
+    return render(request, 'vendor/my_orders.html', context)

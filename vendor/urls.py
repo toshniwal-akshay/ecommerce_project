@@ -19,4 +19,7 @@ urlpatterns = [
     path('product-builder/product/edit/<int:pk>/', views.edit_product, name='edit_product'),
     path('product-builder/product/delete/<int:pk>/', views.delete_product, name='delete_product'),
     
+    path('order_detail/<int:order_number>/', views.order_detail, name='vendor_order_detail'),
+    path('my_orders/', views.my_orders, name='vendor_my_orders'),
+    
 ]
