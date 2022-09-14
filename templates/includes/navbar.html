@@ -9,30 +9,14 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" style="height: 66px;">
                         <div class="logo">
-                            <!-- <figure>
-                                <a href="{% url 'home' %}" class="light-logo">
-                                    <img src="{% static 'logo/foodOnlineLogo.png' %}" alt="FoodOnline" width="250">
-                                </a>
-                            </figure> -->
+                            
+                            <a href="{%url 'home' %}"><h4 >E-CART</h4></a>
                         </div>
-                        
-                        
-                        <!-- <div class="main-location ml-5">
-                            <ul>
-                                <li class="location-has-children choose-location">
-                                    <form action="#">
-                                        <input type="text" value="" name="location" placeholder="Enter your delivery location" autocomplete="off">
-                                        <span id="foodbakery_radius_location_open" class="foodbakery-radius-location"><i class="icon-target5"></i></span>
-                                    </form>
-                                    
-                                </li>
-                            </ul>
-                            </div> -->
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="login-option">
 
-                            {% if user.is_authenticated %}
+                            {% if user.is_authenticated and not user.is_admin %}
                             <a href="{% url 'cart' %}">
                                 <i class="fa fa-shopping-cart text-danger" style="font-size: 20px;"></i>
                                 <span class="badge badge-warning" id="cart_counter" style="border-radius: 50px; position: relative; bottom:10px; left: -5px;">{{ cart_count }}</span>

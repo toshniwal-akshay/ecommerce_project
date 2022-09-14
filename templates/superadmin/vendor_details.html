@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'includes/alerts.html' %}
+
+<!-- Main Section Start -->
+<div class="main-section">
+
+    {% include 'customers/cover.html' %}
+    <div class="page-section account-header buyer-logged-in">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <!-- Load the sidebar here -->
+                    {% include 'includes/a_sidebar.html' %}
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <div class="user-dashboard loader-holder">
+                        <div class="user-holder">
+                            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                                <div class="tabs-holder horizontal">
+                                    <ul class="stickynav-tabs nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#home"><i
+                                                    class="icon- icon-list"></i>Categories</a></li>
+            
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="home" class="tab-pane in active">
+                                            <div class="menu-item-holder">
+            
+                                                <div id="menu-item-list-6272" class="menu-itam-list">
+            
+                                                    {% for category in categories %}
+                                                    <div class="element-title" id="menu-category-2">
+                                                        <h5 class="text-color">{{ category }}</h5>
+                                                    </div>
+                                                    <ul>
+                                                        {% for product in category.products.all %}
+                                                        <li>`
+                                                            <div class="image-holder"> <img src="{{ product.image.url }}" alt="">
+                                                            </div>
+                                                            <div class="text-holder">
+                                                                <h6>{{ product }}</h6>
+                                                                <span>{{ product.description }}</span>
+                                                            </div>
+                                                            <div class="price-holder">
+                                                                <span class="price">${{ product.price }}</span>
+                                                            </div>
+                                                        </li>
+                                                        {% endfor %}
+            
+                                                    </ul>
+                                                    {% endfor %}
+            
+                                                </div>
+                                            </div>
+                                        </div>
+            
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main Section End -->
+
+
+{% endblock %}

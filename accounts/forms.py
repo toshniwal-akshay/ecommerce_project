@@ -1,5 +1,6 @@
 "Custom Import"
 from django import forms
+from django.template.defaultfilters import slugify
 from allauth.account.forms import SignupForm
 from .models import User, UserProfile
 from vendor.models import Vendor
@@ -68,6 +69,7 @@ class VendorSignupForm(SignupForm):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
         user.role = User.VENDOR
+        user.is_staff= True
         user.set_password(self.cleaned_data['password1'])
         user.save()
 
@@ -76,6 +78,7 @@ class VendorSignupForm(SignupForm):
         vendor.user = user
         vendor.user_profile = user_profile
         vendor.shop_name = self.cleaned_data['shop_name']
+        vendor.vendor_slug = slugify(vendor.shop_name)+'-'+str(user.id)
         vendor.save()
         mail_subject = "Activate Your Account"
         email_template = 'accounts/emails/account_verification_email.html'

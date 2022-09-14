@@ -2372,7 +2372,7 @@ a.slicknav_btn.slicknav_open .slicknav_icon-bar:first-child { position: absolute
 .main-header.transparent .main-location ul li ul li a i { margin-left: 15px; font-size: 16px; vertical-align: top; }
 .main-header.transparent .main-location ul li ul li:hover a { background-color: transparent; }
 .banner-sec { margin-top: -106px; }
-.main-header .logo { display: inline-block; vertical-align: middle; margin-right: 30px; max-width: 200px; padding: 10px 0; }
+.main-header .logo { display: inline-block; vertical-align: middle; margin-right: 30px; max-width: 200px; padding: 22px 0; }
 .main-header { background: #fff; position: relative; background: none; -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); }
 .main-location { display: inline-block; vertical-align: middle; width: 300px; }
 .main-location > ul { margin: 0; padding: 0; }

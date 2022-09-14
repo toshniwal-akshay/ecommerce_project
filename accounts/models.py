@@ -42,10 +42,12 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     VENDOR = 1
     CUSTOMER = 2
+    ADMIN = 3
 
     ROLE_CHOICE = (
         (VENDOR, 'Vendor'),
         (CUSTOMER, 'Customer'),
+        (ADMIN, 'Admin'),
     )
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -84,6 +86,8 @@ class User(AbstractBaseUser):
             user_role = 'Vendor'
         elif self.role == 2:
             user_role = 'Customer'
+        elif self.role == 3:
+            user_role = 'Admin'
         return user_role
 
 

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'includes/alerts.html' %}
+
+<div class="main-section">
+
+    {% include 'customers/cover.html' %}
+    <div class="page-section account-header buyer-logged-in">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <!-- Load the sidebar here -->
+                    {% include 'includes/a_sidebar.html' %}
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <div class="user-dashboard loader-holder">
+                        <div class="user-holder">
+                            <h5 class="text-uppercase">Overview</h5>
+                            <p class="text-right">Logged in as: <b>{{ user.first_name }}    {{ user.last_name }}</b></p>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Total Vendors
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <a href="#"><h5 class="card-title">{{ totalVendors }}</h5></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Total Customers
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <a href="#"><h5 class="card-title">{{ totalCustomers }}</h5></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Total Orders
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <a href="#"><h5 class="card-title">{{ totalOrders }}</h5></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Total Products
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <a href="#"><h5 class="card-title">{{ totalProducts }}</h5></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

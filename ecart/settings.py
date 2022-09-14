@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'marketplace',
     'customers',
     'orders',
+    'superadmin',
     "allauth",
     "allauth.account",
     "allauth.socialaccount",

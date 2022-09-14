@@ -84,10 +84,11 @@ def add_category(request):
             category_name = form.cleaned_data['category_name']
             category = form.save(commit=False)
             category.vendor = get_vendor(request)
-            category.slug = slugify(category_name)
-            form.save()
+            category.save()
+            category.slug =  slugify(category_name)+'-'+str(category.id)
+            category.save()
             messages.success(request, 'Category added successfully!')
-            return redirect('product_builder')
+            return redirect('productbuilder')
         else:
             print(form.errors)
 
@@ -111,7 +112,7 @@ def edit_category(request, pk=None):
             category.slug = slugify(category_name)
             form.save()
             messages.success(request, 'Category updated successfully!')
-            return redirect('product_builder')
+            return redirect('productbuilder')
         else:
             print(form.errors)
 
@@ -129,7 +130,7 @@ def delete_category(request, pk=None):
     category = get_object_or_404(Category, pk=pk)
     category.delete()
     messages.success(request, 'Category has been deleted successfully!')
-    return redirect('product_builder')
+    return redirect('productbuilder')
 
 
 @login_required(login_url='login')
