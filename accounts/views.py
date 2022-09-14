@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse,redirect
+from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.exceptions import PermissionDenied
@@ -8,11 +8,12 @@ from allauth.account.views import SignupView
 import datetime
 
 from orders.models import Order
+from products.models import Product
 from vendor.models import Vendor
 
 from .models import User
-from .forms import UserSignupForm,VendorSignupForm
-from accounts.utils import detectUser,send_verification_email
+from .forms import UserSignupForm, VendorSignupForm
+from accounts.utils import detectUser, send_verification_email
 
 
 # Create your views here.
@@ -33,50 +34,44 @@ def check_role_customer(user):
         raise PermissionDenied
 
 
-
-
+# Restrict the customer from accessing the vendor page
+def check_role_admin(user):
+    if user.role == 3:
+        return True
+    else:
+        raise PermissionDenied
 
 
 class UserSignupView(SignupView):
     "Signup View extended"
     template_name = "accounts/register_user.html"
-    
+
     form_class = UserSignupForm
 
     def get_context_data(self, **kwargs):
         context = super(UserSignupView, self).get_context_data(**kwargs)
         context.update(self.kwargs)
         userSignUpForm = UserSignupForm(self.request.POST or None)
-        
-        # if userSignUpForm.is_valid():
-        #     context['form'] = userSignUpForm
-        #     return context
-        # else:
-        #     if User.objects.filter(username = userSignUpForm.username).first():
-        #         messages.error(self.request, "This username is already taken")
-        #         return redirect('accounts/register_user.html')
         context['form'] = userSignUpForm
         return context
 
-registeruser = UserSignupView.as_view()
 
+registeruser = UserSignupView.as_view()
 
 
 class VendorSignupView(SignupView):
     "Signup View extended"
     template_name = "accounts/register_vendor.html"
-    
+
     form_class = VendorSignupForm
-     
+
     def get_context_data(self, **kwargs):
         context = super(VendorSignupView, self).get_context_data(**kwargs)
         context.update(self.kwargs)
         vendorSignUpForm = VendorSignupForm(self.request.POST or None)
-        
+
         context['form'] = vendorSignUpForm
         return context
-
-
 
 
 registervendor = VendorSignupView.as_view()
@@ -87,7 +82,7 @@ def activate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
         user = User._default_manager.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
     if user is not None and default_token_generator.check_token(user, token):
@@ -98,7 +93,7 @@ def activate(request, uidb64, token):
     else:
         messages.error(request, 'Invalid activation link')
         return redirect('myAccount')
-    
+
 
 def login(request):
     if request.user.is_authenticated:
@@ -113,11 +108,15 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'You are now logged in.')
-            return redirect('home')
+            if user.is_admin:
+                return redirect('admindashboard')
+            else:
+                return redirect('home')
         else:
             messages.error(request, 'Invalid login credentials')
             return redirect('login')
     return render(request, 'accounts/login.html')
+
 
 def logout(request):
     auth.logout(request)
@@ -145,21 +144,21 @@ def custDashboard(request):
     return render(request, 'accounts/custDashboard.html', context)
 
 
-
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
-def vendorDashboard(request): 
-    
+def vendorDashboard(request):
+
     vendor = Vendor.objects.get(user=request.user)
-    orders = Order.objects.filter(vendors__in=[vendor.id], is_ordered=True).order_by('created_at')
+    orders = Order.objects.filter(
+        vendors__in=[vendor.id], is_ordered=True).order_by('created_at')
     recent_orders = orders[:10]
 
     # current month's revenue
     current_month = datetime.datetime.now().month
-    current_month_orders = orders.filter(vendors__in=[vendor.id], created_at__month=current_month)
+    current_month_orders = orders.filter(
+        vendors__in=[vendor.id], created_at__month=current_month)
     current_month_revenue = 0
     for i in current_month_orders:
-        print(i)
         current_month_revenue += i.get_total_by_vendor()['grand_total']
 
     # total revenue
@@ -176,8 +175,6 @@ def vendorDashboard(request):
     return render(request, 'accounts/vendorDashboard.html', context)
 
 
-
-
 def forgot_password(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -188,9 +185,11 @@ def forgot_password(request):
             # send reset password email
             mail_subject = 'Reset Your Password'
             email_template = 'accounts/emails/reset_password_email.html'
-            send_verification_email(request, user, mail_subject, email_template)
+            send_verification_email(
+                request, user, mail_subject, email_template)
 
-            messages.success(request, 'Password reset link has been sent to your email address.')
+            messages.success(
+                request, 'Password reset link has been sent to your email address.')
             return redirect('login')
         else:
             messages.error(request, 'Account does not exist')
@@ -203,7 +202,7 @@ def reset_password_validate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
         user = User._default_manager.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
     if user is not None and default_token_generator.check_token(user, token):
@@ -232,3 +231,21 @@ def reset_password(request):
             messages.error(request, 'Password do not match!')
             return redirect('reset_password')
     return render(request, 'accounts/reset_password.html')
+
+
+@login_required(login_url='login')
+@user_passes_test(check_role_admin)
+def adminDashboard(request):
+    totalOrders = Order.objects.filter(is_ordered=True)
+    totalCustomers = User.objects.filter(role=2,is_active=True)
+    totalVendors = Vendor.objects.filter(is_approved=True)
+    totalProducts = Product.objects.filter(is_available=True)
+    
+    context={
+        'totalOrders':totalOrders.count(),
+        'totalCustomers':totalCustomers.count(),
+        'totalVendors':totalVendors.count(),
+        'totalProducts':totalProducts.count(),    
+    }
+    
+    return render(request,'superadmin/adminDashboard.html',context)

@@ -1,0 +1,11 @@
+<div class="user-account-nav user-account-sidebar">
+    <div class="user-nav-list">
+        <ul>
+            <li class="{% if '/admindashboard/' in request.path or '/admin/' == request.path %}active{% endif %}"><a href="{% url 'admindashboard' %}"><i class="icon-dashboard3"></i>Dashboard</a></li>
+            <li class="{% if '/vendors/' in request.path %}active{% endif %}"><a href="{% url 'adminvendor' %}"><i class="icon-dashboard3"></i>Vendors</a></li>
+            <li class="{% if '/orders/' in request.path  or '/order_detail/' in request.path  %}active{% endif %}"><a href="{% url 'admin_orders_detail' %}"><i class="icon-add_shopping_cart"></i>Orders</a></li>
+            <li class="{% if '/customers/' in request.path %}active{% endif %}"><a href="{% url 'admin_customers' %}"><i class="icon-build"></i>Customers</a></li>
+            <li><a class="logout-btn" href="{% url 'logout' %}"><i class="icon-log-out"></i>Signout</a></li>
+        </ul>
+    </div>
+</div>

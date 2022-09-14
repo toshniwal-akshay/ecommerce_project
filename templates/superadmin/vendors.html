@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'includes/alerts.html' %}
+
+<!-- Main Section Start -->
+<div class="main-section">
+
+    {% include 'customers/cover.html' %}
+    <div class="page-section account-header buyer-logged-in">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <!-- Load the sidebar here -->
+                    {% include 'includes/a_sidebar.html' %}
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <div class="user-dashboard loader-holder">
+                        <div class="user-holder">
+
+                            <h5 class="text-uppercase">Sellers Registered </h5>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="user-orders-list">
+                                        <div class="responsive-table">
+                                            <table class="table table-hover" id="myOrdersTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Shop Name</th>
+                                                        <th scope="col">Email</th>
+                                                        <th scope="col">Is Approved</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for vendor in vendors %}
+                                                    <tr>
+                                                        <td style="text-align: left;"><b><a
+                                                                    href="{% url 'vendor_detail' vendor.slug %}"
+                                                                    class="text-dark">{{ vendor.shop_name }}</a></b>
+                                                        </td>
+                                                        <td style="text-align: left;">{{ vendor.user }}</td>
+                                                        <td style="text-align: left;"><b>{{ vendor.is_approved }}</b>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main Section End -->
+
+
+{% endblock %}
