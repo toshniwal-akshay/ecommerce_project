@@ -44,14 +44,18 @@ def check_role_admin(user):
 
 class UserSignupView(SignupView):
     "Signup View extended"
-    template_name = "accounts/register_user.html"
+    template_name = "accounts/registerUser.html"
 
     form_class = UserSignupForm
 
     def get_context_data(self, **kwargs):
+
         context = super(UserSignupView, self).get_context_data(**kwargs)
+        context['redirect_field_value'] = '/account/login'
         context.update(self.kwargs)
+
         userSignUpForm = UserSignupForm(self.request.POST or None)
+
         context['form'] = userSignUpForm
         return context
 
@@ -61,7 +65,7 @@ registeruser = UserSignupView.as_view()
 
 class VendorSignupView(SignupView):
     "Signup View extended"
-    template_name = "accounts/register_vendor.html"
+    template_name = "accounts/registerVendor.html"
 
     form_class = VendorSignupForm
 
@@ -237,15 +241,15 @@ def reset_password(request):
 @user_passes_test(check_role_admin)
 def adminDashboard(request):
     totalOrders = Order.objects.filter(is_ordered=True)
-    totalCustomers = User.objects.filter(role=2,is_active=True)
+    totalCustomers = User.objects.filter(role=2, is_active=True)
     totalVendors = Vendor.objects.filter(is_approved=True)
     totalProducts = Product.objects.filter(is_available=True)
-    
-    context={
-        'totalOrders':totalOrders.count(),
-        'totalCustomers':totalCustomers.count(),
-        'totalVendors':totalVendors.count(),
-        'totalProducts':totalProducts.count(),    
+
+    context = {
+        'totalOrders': totalOrders.count(),
+        'totalCustomers': totalCustomers.count(),
+        'totalVendors': totalVendors.count(),
+        'totalProducts': totalProducts.count(),
     }
-    
-    return render(request,'superadmin/adminDashboard.html',context)
+
+    return render(request, 'superadmin/adminDashboard.html', context)

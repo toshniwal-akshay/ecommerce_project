@@ -18,9 +18,3 @@ def post_save_create_profile_receiver(sender, instance, created, **kwargs):
             UserProfile.objects.create(user=instance)
             # print("Didn't Exist. User profile Created")
         # print("user Updated")
-
-
-@receiver(pre_save, sender=User)
-def pre_save_profile_receiver(sender, instance, **kwargs):
-    # print(instance.username , " user is being Created")
-    pass

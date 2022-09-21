@@ -7,7 +7,7 @@ from .models import User,UserProfile
 
 class CustomUserAdmin(UserAdmin):
     
-    list_display = ('email','username','first_name','last_name','role','is_staff','is_admin','is_active')
+    list_display = ('email','first_name','last_name','role','is_staff','is_admin','is_active')
     ordering = ('-date_joined',)
     filter_horizontal = ()
     list_filter = ()
