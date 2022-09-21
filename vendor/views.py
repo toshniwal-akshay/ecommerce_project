@@ -35,9 +35,6 @@ def vprofile(request):
             vendor_form.save()
             messages.success(request, 'Settings updated.')
             return redirect('vprofile')
-        else:
-            print(profile_form.errors)
-            print(vendor_form.errors)
     else:
         profile_form = UserProfileForm(instance = profile)
         vendor_form = VendorForm(instance=vendor)
@@ -89,9 +86,7 @@ def add_category(request):
             category.save()
             messages.success(request, 'Category added successfully!')
             return redirect('productbuilder')
-        else:
-            print(form.errors)
-
+        
     else:
         form = CategoryForm()
     context = {
@@ -113,9 +108,7 @@ def edit_category(request, pk=None):
             form.save()
             messages.success(request, 'Category updated successfully!')
             return redirect('productbuilder')
-        else:
-            print(form.errors)
-
+        
     else:
         form = CategoryForm(instance=category)
     context = {
@@ -146,8 +139,7 @@ def add_product(request):
             form.save()
             messages.success(request, 'Product Item added successfully!')
             return redirect('productitems_by_category', product.category.id)
-        else:
-            print(form.errors)
+        
     else:
         form = ProductForm()
         form.fields['category'].queryset = Category.objects.filter(vendor=get_vendor(request))
@@ -173,9 +165,6 @@ def edit_product(request, pk=None):
             form.save()
             messages.success(request, 'Product Item updated successfully!')
             return redirect('productitems_by_category', product.category.id)
-        else:
-            print(form.errors)
-
     else:
         form = ProductForm(instance=product)
         form.fields['category'].queryset = Category.objects.filter(vendor=get_vendor(request))

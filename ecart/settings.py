@@ -135,9 +135,10 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_SIGNUP_REDIRECT_URL = '/account/registeruser/'
 
 
-ACCOUNT_ADAPTER="accounts.adapter.CustomAccountAdapter"
+#ACCOUNT_ADAPTER="accounts.adapter.CustomAccountAdapter"
 
 
 
@@ -174,3 +175,5 @@ DEFAULT_FROM_EMAIL = "E-CART <django.admin@gmail.com>"
 
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 MEDIA_URL = "/media/"
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField' 

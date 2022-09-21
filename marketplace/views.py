@@ -9,6 +9,11 @@ from orders.forms import OrderForm
 
 from .models import Cart
 from .context_processors import get_cart_counter, get_cart_amounts
+from django.shortcuts import HttpResponse
+
+
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 
 
@@ -46,7 +51,7 @@ from .context_processors import get_cart_counter, get_cart_amounts
 
 def add_to_cart(request, product_id):
     if request.user.is_authenticated:
-        if request.is_ajax():
+        if is_ajax(request=request):
             # Check if the product item exists
             try:
                 product = Product.objects.get(id=product_id)
@@ -73,7 +78,7 @@ def add_to_cart(request, product_id):
 
 def decrease_cart(request, product_id):
     if request.user.is_authenticated:
-        if request.is_ajax():
+        if is_ajax(request=request):
             # Check if the product item exists
             try:
                 product = Product.objects.get(id=product_id)
@@ -111,7 +116,7 @@ def cart(request):
 
 def delete_cart(request, cart_id):
     if request.user.is_authenticated:
-        if request.is_ajax():
+        if is_ajax(request=request):
             try:
                 # Check if the cart item exists
                 cart_item = Cart.objects.get(user=request.user, id=cart_id)
@@ -122,6 +127,9 @@ def delete_cart(request, cart_id):
                 return JsonResponse({'status': 'Failed', 'message': 'Cart Item does not exist!'})
         else:
             return JsonResponse({'status': 'Failed', 'message': 'Invalid request!'})
+    else:
+        return JsonResponse({'status': 'login_required', 'message': 'Please login to continue'})
+
 
 
 @login_required(login_url='login')

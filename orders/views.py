@@ -19,7 +19,7 @@ def place_order(request):
     cart_items = Cart.objects.filter(user=request.user).order_by('created_at')
     cart_count = cart_items.count()
     if cart_count <= 0:
-        return redirect('marketplace')
+        return redirect('home')
 
     vendors_ids = []
     for i in cart_items:

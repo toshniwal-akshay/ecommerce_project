@@ -6,16 +6,13 @@ from django.db.models.fields.related import OneToOneField
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, first_name, last_name, username, email, password=None):
+    def create_user(self, first_name, last_name, email, password=None):
         if not email:
             raise ValueError('User must have an email address')
 
-        if not username:
-            raise ValueError('User must have an username')
-
+        
         user = self.model(
             email=self.normalize_email(email),
-            username=username,
             first_name=first_name,
             last_name=last_name,
         )
@@ -23,10 +20,9 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, first_name, last_name, username, email, password=None):
+    def create_superuser(self, first_name, last_name,  email, password=None):
         user = self.create_user(
             email=self.normalize_email(email),
-            username=username,
             password=password,
             first_name=first_name,
             last_name=last_name,
@@ -51,7 +47,7 @@ class User(AbstractBaseUser):
     )
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    username = models.CharField(max_length=50)
+    #username = models.CharField(max_length=50)
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=12, blank=True)
     role = models.PositiveSmallIntegerField(
@@ -68,7 +64,7 @@ class User(AbstractBaseUser):
     is_superadmin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     objects = UserManager()
 
@@ -81,14 +77,14 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
-    def get_role(self):
-        if self.role == 1:
-            user_role = 'Vendor'
-        elif self.role == 2:
-            user_role = 'Customer'
-        elif self.role == 3:
-            user_role = 'Admin'
-        return user_role
+    # def get_role(self):
+    #     if self.role == 1:
+    #         user_role = 'Vendor'
+    #     elif self.role == 2:
+    #         user_role = 'Customer'
+    #     elif self.role == 3:
+    #         user_role = 'Admin'
+    #     return user_role
 
 
 class UserProfile(models.Model):
