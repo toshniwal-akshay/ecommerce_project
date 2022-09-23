@@ -25,3 +25,4 @@ simplejson==3.17.6
 sqlparse==0.4.2
 toml==0.10.2
 urllib3==1.26.12
+whitenoise==6.2.0
