@@ -70,9 +70,6 @@ def place_order(request):
                 'cart_items': cart_items,
             }
             return render(request, 'orders/place_order.html', context)
-
-        else:
-            print(form.errors)
     return render(request, 'orders/place_order.html')
 
 
@@ -132,7 +129,6 @@ def payments(request):
         for i in cart_items:
             if i.product.vendor.user.email not in to_emails:
                 to_emails.append(i.product.vendor.user.email)
-        print('to_emails=>', to_emails)
         context = {
             'order': order,
             'to_email': to_emails,
