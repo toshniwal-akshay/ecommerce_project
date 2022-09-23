@@ -16,39 +16,6 @@ def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 
-
-# def marketplace(request):
-#     vendors = Vendor.objects.filter(is_approved=True, user__is_active=True)
-#     vendor_count = vendors.count()
-#     context = {
-#         'vendors': vendors,
-#         'vendor_count': vendor_count,
-#     }
-#     return render(request, 'marketplace/listings.html', context)
-
-
-# def vendor_detail(request, vendor_slug):
-#     vendor = get_object_or_404(Vendor, vendor_slug=vendor_slug)
-
-#     categories = Category.objects.filter(vendor=vendor).prefetch_related(
-#         Prefetch(
-#             'product',
-#             queryset = Product.objects.filter(is_available=True)
-#         )
-#     )
-
-#     if request.user.is_authenticated:
-#         cart_items = Cart.objects.filter(user=request.user)
-#     else:
-#         cart_items = None
-#     context = {
-#         'vendor': vendor,
-#         'categories': categories,
-#         'cart_items': cart_items,
-#     }
-#     return render(request, 'marketplace/vendor_detail.html', context)
-
-
 def add_to_cart(request, product_id):
     if request.user.is_authenticated:
         if is_ajax(request=request):
