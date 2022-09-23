@@ -183,3 +183,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 MEDIA_URL = "/media/"
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
+
+CSRF_TRUSTED_ORIGINS = ['https://ecart-ecommerce-project.herokuapp.com/']
