@@ -307,7 +307,6 @@ class ProdcutsTest(TestCase):
         }
 
         response = self.client.post(reverse('add_product'), data)
-        print(response)
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(str(messages[0]), 'Product Item added successfully!')
 

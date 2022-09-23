@@ -7,52 +7,23 @@
 <div class="main-section">
 	<!-- Home Pages Elements Strat -->
 	<!-- Main Search Start -->
-	<div class="page-section nopadding cs-nomargin" style="padding-top: 100px; padding-bottom: 50px; margin-bottom: 0px; "> 
+	<div class="page-section nopadding cs-nomargin"
+		style="padding-top: 100px; padding-bottom: 50px; margin-bottom: 0px; ">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 					<div class="element-title">
-						<h1 style="font-size: 40px; color: #505050; text-transform: uppercase; line-height: 50px; margin-bottom: 25px; text-align:center;">
+						<h1
+							style="font-size: 40px; color: #505050; text-transform: uppercase; line-height: 50px; margin-bottom: 25px; text-align:center;">
 							Welcome to Our E-Commerce Store<br>All in One Place Store</h1>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Main Search End -->
-	
-	<!-- Top Restarurants Section Start -->
-	<!-- <div class="page-section nopadding cs-nomargin" style="margin-top: 0px;padding-top: 60px;padding-bottom: 0px;margin-bottom: 0px;background: #ffffff;">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="element-title align-left">
-						<h2>Our Products</h2>
-					</div>
-				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0 !important; padding-left: 0 !important;">
-					<div class="company-logo">
-						<ul>
-							{% for product in products %}
-							<li class="has-border">
-								<figure>
-									{% if product.image %}
-									<a href="#"><img src="{{ product.image.url }}" class="attachment-full size-full wp-post-image" alt=""></a>
-									{% else %}
-									<a href="#"><img src="{% static 'images/default-profile.PNG' %}" class="attachment-full size-full wp-post-image" alt=""></a>
-									{% endif %}
-								</figure>
-							</li>
-							{% endfor %}
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- Top Restarurants Section End -->
 	<!-- Choose From Most Popular Listin Start -->
-	<div class="page-section nopadding cs-nomargin" style="margin-top: 0px;padding-top: 60px;padding-bottom: 50px;margin-bottom: 0px;background: #ffffff;">
+	<div class="page-section nopadding cs-nomargin"
+		style="margin-top: 0px;padding-top: 60px;padding-bottom: 50px;margin-bottom: 0px;background: #ffffff;">
 		<div class="container">
 			<div class="row" style="margin-bottom: 20px;">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 20px;">
@@ -67,7 +38,7 @@
 
 
 
-				
+
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="listing fancy">
 						<ul class="row">
@@ -78,52 +49,53 @@
 										<figure>
 											<a href="#">
 												{% if product.image %}
-												<img src="{{ product.image.url }}" class="img-thumb wp-post-image" alt="">
-												
+												<img src="{{ product.image.url }}" class="img-thumb wp-post-image"
+													alt="">
+
 												{% else %}
-												<img src="{% static 'images/default-profile.png' %}" class="img-thumb wp-post-image" alt="">
+												<img src="{% static 'images/default-profile.png' %}"
+													class="img-thumb wp-post-image" alt="">
 												{% endif %}
 											</a><br>
 										</figure>
 
 										<div class="price-holder">
-                                                    <span class="price">${{ product.price }}</span>
+											<span class="price">${{ product.price }}</span>
 
-                                                    <a href="#" class="decrease_cart" data-id="{{ product.id }}" data-url="{% url 'decrease_cart' product.id %}" style="margin-right: 8px;"><i class="icon-minus text-color"></i></a>
-                                                    <label id="qty-{{product.id}}">0</label>
-                                                    <a href="#" class="add_to_cart" data-id="{{ product.id }}" data-url="{% url 'add_to_cart' product.id %}"><i class="icon-plus4 text-color"></i></a>
-                                                    
-                                                </div>
-                   
+											<a href="#" class="decrease_cart" data-id="{{ product.id }}"
+												data-url="{% url 'decrease_cart' product.id %}"
+												style="margin-right: 8px;"><i class="icon-minus text-color"></i></a>
+											<label id="qty-{{product.id}}">0</label>
+											<a href="#" class="add_to_cart" data-id="{{ product.id }}"
+												data-url="{% url 'add_to_cart' product.id %}"><i
+													class="icon-plus4 text-color"></i></a>
+
+										</div>
+
 										<!-- <span class="restaurant-status close">
 											<em class="bookmarkRibbon"></em>Close
 										</span> -->
 									</div>
-									<div class="text-holder">											
+									<div class="text-holder">
 										<div class="post-title">
 											<h5>
 												<a href="#">{{ product.title }}</a>
 											</h5>
 										</div>
-										{% if product.description and product.category and product.vendor  %}
-										<span>Description : {{ product.description }} <br>Category :  {{ product.category }}<br>From  :   {{ product.vendor }}</span>
+										{% if product.description and product.category and product.vendor %}
+										<span>Description : {{ product.description }} <br>Category : {{ product.category}}<br>From : {{ product.vendor }}</span>
 										{% endif %}
 									</div>
-									
+
 									<div class="list-option">
-										<a href="javascript:void(0);" class="shortlist-btn" data-toggle="modal" data-target="#sign-in">
+										<a href="javascript:void(0);" class="shortlist-btn" data-toggle="modal"
+											data-target="#sign-in">
 											<i class="icon-heart-o"></i>
 										</a>
 									</div>
 								</div>
 							</li>
 							{% endfor %}
-							
-							
-							
-							
-							
-
 						</ul>
 					</div>
 				</div>

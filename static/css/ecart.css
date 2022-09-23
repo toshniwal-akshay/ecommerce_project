@@ -74,6 +74,7 @@
 .login-form .alert-danger span { color: #f97456; }
 .login-form .alert button.close { color: #aaa; font-size: 24px; opacity: 1; position: absolute; right: 15px; top: 10px; }
 .login-form .alert-danger p { color: #b63a2b !important; font-size: 13px; }
+.login-form .alert-error p { color: #b63a2b !important; font-size: 13px; }
 .login-form .alert-success p { color: #3C0 !important; }
 /* resturant detail menu start */
 .login-form .g-recaptcha { -webkit-transform: scale(1.15); -moz-transform: scale(1.1); -ms-transform: scale(1.1); transform: scale(1.1); -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0; }

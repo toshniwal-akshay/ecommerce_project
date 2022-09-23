@@ -134,42 +134,6 @@
     const csrftoken = getCookie('csrftoken');
     var order_complete = "{% url 'order_complete' %}"
     console.log('csrftoken===>', csrftoken)
-    // Render the PayPal button into #paypal-button-container
-    // paypal.Buttons({
-
-    //     // Set up the transaction
-    //     createOrder: function(data, actions) {
-    //         return actions.order.create({
-    //             purchase_units: [{
-    //                 amount: {
-    //                     value: grand_total
-    //                 }
-    //             }]
-    //         });
-    //     },
-
-    //     // Finalize the transaction
-    //     onApprove: function(data, actions) {
-    //         return actions.order.capture().then(function(orderData) {
-    //             // Successful capture! For demo purposes:
-    //             console.log(orderData)
-    //             var transaction = orderData.purchase_units[0].payments.captures[0];
-
-    //             var transaction_id = transaction.id
-    //             var status = orderData.status
-    //             var payment_method = 'PayPal'
-    //             sendTransaction(transaction_id, payment_method, status);
-
-    //             // Replace the above to show a success message within this page, e.g.
-    //             const element = document.getElementById('paypal-button-container');
-    //             element.innerHTML = '';
-    //             element.innerHTML = '<h4 class="text-center"><i class="fa fa-spinner fa-spin"></i> Please wait...</h4>';
-    //             // Or go to another URL:  actions.redirect('thank_you.html');
-    //         });
-    //     }
-
-
-    // }).render('#paypal-button-container');
 
     const uid = function(){
     return Date.now().toString(36) + Math.random().toString(36).substr(2);

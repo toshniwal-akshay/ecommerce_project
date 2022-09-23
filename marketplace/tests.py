@@ -1,4 +1,3 @@
-from urllib import response
 from django.test import TestCase
 from django.urls import reverse
 from accounts.models import User, UserProfile
@@ -9,7 +8,6 @@ from django.contrib.messages import get_messages
 from django.core.files.uploadedfile import InMemoryUploadedFile
 # no need of decode here anymore
 from io import BytesIO
-import tempfile             # for setting up tempdir for media
 import base64
 
 
